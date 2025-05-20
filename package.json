@@ -9,6 +9,7 @@
   "author": "John Quarmor",
   "license": "ISC",
   "dependencies": {
-    "ccxt": "^4.4.82"
+    "ccxt": "^4.4.82",
+    "readline-sync": "^1.4.10"
   }
 }
