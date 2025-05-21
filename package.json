@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "ccxt": "^4.4.82",
+    "dotenv": "^16.5.0",
     "readline-sync": "^1.4.10"
   }
 }
