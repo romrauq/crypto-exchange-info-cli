@@ -22,14 +22,14 @@ const checkBase = async (_exchange) => {
 // User enters a quote id & an array containing objects of symbols ending with the specified quote is returned:
 let getUSDTMarkets = async (_exchange) => {
 	await _exchange.loadMarkets(); // Loads available markets data of the exchange class.
-	const markets = await _exchange.fetchMarkets();
+	let markets = await _exchange.fetchMarkets();
 
 	let quote_input = readline.question("Enter quote currency: ").trim(); // Get base input value from user.
 	let quote_uppercase = quote_input.toUpperCase();
 	let endQoute = `/${quote_uppercase}`;
 
 	let target_symbols = markets.filter((item) => item.symbol.endsWith(endQoute));
-	// console.log(target_symbols);
+	// console.log(target_symbols); // Test log for reviewing returned data.
 
 	if (target_symbols.length !== 0) {
 		let count = 1;
@@ -48,4 +48,18 @@ let getUSDTMarkets = async (_exchange) => {
 	console.log("Total Number of Symbols:", target_symbols.length);
 };
 
-module.exports = { checkBase, getUSDTMarkets };
+// Returns an array of strings of symbols obtained from a passed markets array data:
+const getSymbols = async (_exchange, _markets_array) => {
+	try {
+		if (_markets_array.length !== 0) {
+			let symbolsArray = [];
+			_markets_array.forEach((element) => {
+				symbolsArray.push(element.symbol);
+			});
+			// console.log(symbolsArray); // Test log for reviewing returned data.
+			return symbolsArray;
+		}
+	} catch (error) {
+		console.log(error);
+	}
+};
