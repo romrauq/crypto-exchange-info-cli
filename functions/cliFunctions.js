@@ -40,7 +40,7 @@ let getUSDTMarkets = async (_exchange) => {
 		// 	count++;
 		// });
 
-		return target_symbols; // return array.
+		return target_symbols; // Return array [key:{}, key:{}, key:{} ...].
 	} else {
 		console.log(`There are no symbols with the end quote "${endQoute}"`);
 	}
@@ -63,3 +63,17 @@ const getSymbols = async (_exchange, _markets_array) => {
 		console.log(error);
 	}
 };
+
+const fetchTickers = async (_exchange, _symbols_array) => {
+	try {
+		let tickersArray = await _exchange.fetchTickers(_symbols_array);
+		console.log(tickersArray); // test log for reviewing returned data.
+		return tickersArray;
+
+		// return exchangeTickers;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+module.exports = { checkBase, getUSDTMarkets, getSymbols, fetchTickers };
