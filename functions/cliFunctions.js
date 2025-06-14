@@ -57,7 +57,7 @@ const getSymbols = async (_exchange, _markets_array) => {
 				symbolsArray.push(element.symbol);
 			});
 			// console.log(symbolsArray); // Test log for reviewing returned data.
-			return symbolsArray;
+			return symbolsArray; //
 		}
 	} catch (error) {
 		console.log(error);
@@ -76,4 +76,30 @@ const fetchTickers = async (_exchange, _symbols_array) => {
 	}
 };
 
-module.exports = { checkBase, getUSDTMarkets, getSymbols, fetchTickers };
+const getTopLiquidity = (_markets_array) => {
+	if (_markets_array.length !== 0) {
+		try {
+			_markets_array.sort((a, b) => b.info.quoteVolume - a.info.quoteVolume); // sort by liquidity (quoteVolume)
+			let count = 1;
+
+			_markets_array.slice(0, 10).forEach((symbol) => {
+				// Display top 10 symbols
+				console.log(count, symbol.symbol); // Test log for reviewing returned data.
+				count++;
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	} else {
+		console.log(`There are no symbols with the end quote "${endQoute}"`);
+	}
+	console.log("Total Number of Symbols:", _markets_array.length);
+};
+
+module.exports = {
+	checkBase,
+	getUSDTMarkets,
+	getSymbols,
+	fetchTickers,
+	getTopLiquidity,
+};
