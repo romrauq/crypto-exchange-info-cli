@@ -31,8 +31,6 @@ const getSymbolsVolumes = async (_exchange, _symbols, _delay = 3) => {
 	response_arr.push(response); // Push response object into array.
 	// console.log(response_arr[0]["BTC/USDT"]); // Test Log.
 
-	await apiCooldown(_delay); // API cooldown.
-
 	let volume_data = []; // Define empty array
 
 	for (let i = 0; i < _symbols.length - 1; i++) {
@@ -52,11 +50,10 @@ const getSymbolsVolumes = async (_exchange, _symbols, _delay = 3) => {
 };
 
 // Function that takes an array of objects {symbol: val, b_volume: val, q_volume: val} and filters out low volumes according to the volume limit parameter argument passed to the function.
-const filterLowVolumes = (_data, _vol_limit) => {
+const getHighVolumes = (_data, _vol_limit) => {
 	const high_volumes = _data.filter((symbol) => symbol.quote_volume > _vol_limit);
-	// console.log(`Above ${_vol_limit} Volumes:`, high_volumes); // Test log.
 
 	return high_volumes;
 };
 
-module.exports = { getPastOHLCV, getSymbolsVolumes, filterLowVolumes };
+module.exports = { getPastOHLCV, getSymbolsVolumes, getHighVolumes };
